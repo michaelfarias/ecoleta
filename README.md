@@ -2,6 +2,6 @@
 	🚧 NextLevelWeek 1.0 🚀
 </h3>
 
-	:brazil Project developed during the NextLevelWeek edition offered by Rocketseat
+	:brazil: Project developed during the NextLevelWeek edition offered by Rocketseat
 
-# :recycle ecoleta
+# :recycle: ecoleta
