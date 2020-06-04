@@ -1,41 +1,88 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native'
-import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { View, StyleSheet, Image, Text, TouchableOpacity, SafeAreaView, Linking } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import * as MailComposer from 'expo-mail-composer';
+
+import api from '../../services/api';
+
+interface Params {
+    point_id: number;
+}
+
+interface Data {
+    point: {
+        image: string,
+        name: string,
+        email: string,
+        whatsapp: number,
+        city: string,
+        uf: string;
+    };
+
+    items: {
+        title: string
+    }[];
+}
 
 const Detail = () => {
+    const [data, setData] = useState<Data>({} as Data);
+
     const navigation = useNavigation();
+    const route = useRoute();
+
+    const routeParams = route.params as Params;
+
+    useEffect(() => {
+        api.get(`points/${routeParams.point_id}`).then(response => {
+            setData(response.data)
+        })
+    }, []);
 
     function handleNavigationBack() {
         navigation.goBack();
     }
 
+    function handleWhatsapp() {
+        Linking.openURL(`whatsapp://send?phone=${data.point.whatsapp}&text=Tenho interesse na coleta de resíduos`)
+    }
+
+    function handleComposeMail() {
+        MailComposer.composeAsync({
+            subject: 'Interesse na coleta de resíduos',
+            recipients: [data.point.email],
+        })
+    }
+
+    if (!data.point)
+        return null
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleNavigationBack}>
                     <Icon name="arrow-left" size={20} color="#34cb79" />
                 </TouchableOpacity>
 
-                <Image style={styles.pointImage} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Igreja_Matriz_de_Senhora_Sant%27Ana_-_Independ%C3%AAncia-CE_-_Festa%2C_26-07_-_panoramio.jpg' }} />
+                <Image style={styles.pointImage} source={{ uri: data.point.image }} />
 
-                <Text style={styles.pointName}>Name</Text>
-                <Text style={styles.pointItems}>Item</Text>
+                <Text style={styles.pointName}>{data.point.name}</Text>
+                <Text style={styles.pointItems}>{data.items.map(item => item.title).join(',')}</Text>
 
                 <View style={styles.address}>
-                    <Text style={styles.addressTitle}>Titulo</Text>
-                    <Text style={styles.addressContent}>Endereço</Text>
+                    <Text style={styles.addressTitle}>Endereço</Text>
+                    <Text style={styles.addressContent}>{data.point.city}, {data.point.uf}</Text>
                 </View>
             </View>
 
             <View style={styles.footer}>
-                <RectButton style={styles.button} onPress={() => { }}>
+                <RectButton style={styles.button} onPress={handleWhatsapp}>
                     <FontAwesome name="whatsapp" size={20} color="#FFF" />
                     <Text style={styles.buttonText}>Whatsapp</Text>
                 </RectButton>
 
-                <RectButton style={styles.button} onPress={() => { }}>
+                <RectButton style={styles.button} onPress={handleComposeMail}>
                     <Icon name="mail" size={20} color="#FFF" />
                     <Text style={styles.buttonText}>E-mail</Text>
                 </RectButton>
@@ -95,7 +142,6 @@ const styles = StyleSheet.create({
         borderTopWidth: StyleSheet.hairlineWidth,
         borderColor: '#999',
         paddingVertical: 20,
-        paddingBottom: 0,
         paddingHorizontal: 32,
         flexDirection: 'row',
         justifyContent: 'space-between'
