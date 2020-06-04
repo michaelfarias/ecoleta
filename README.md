@@ -18,5 +18,8 @@ As empresas ou entidades poderão se cadastrar na plataforma web enviando:
   - óleo de cozinha
 ## :computer: Technologies
 Technologies used in the development of the ecoleta project:
-*[Node.js](nodejs)
--[React]
+
+-[Node.js](https://nodejs.org/en)
+-[React](https://pt-br.reactjs.org/)
+-[React Native](https://reactnative.dev/)
+-[expo](https://expo.io/)
