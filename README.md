@@ -6,3 +6,4 @@
 
 # :recycle: Ecoleta
 ## :computer: Technologies
+technologies used in the development of the ecoleta project
