@@ -5,7 +5,7 @@
 :brazil: Project developed during the NextLevelWeek edition offered by Rocketseat.
 
 # :recycle: Ecoleta
-O Ecoleta é uma aplicação de conectar empresas e entidades de coleta de resíduos orgânicos e inorgânicos às pessoas que precisam descartar seus resíduos de maneira ecológica.
+O Ecoleta é uma aplicação que visa conectar empresas e entidades de coleta de resíduos orgânicos e inorgânicos às pessoas que precisam descartar seus resíduos de maneira ecológica.
 
 As empresas ou entidades poderão se cadastrar na plataforma web enviando:
 - Uma imagem do ponto de coleta, nome da entidade, email e whatsapp e o endereço para que possa ser exibido no mapa.
@@ -23,4 +23,4 @@ Technologies used in the development of the ecoleta project:
 - [Node.js](https://nodejs.org/en)
 - [React](https://pt-br.reactjs.org/)
 - [React Native](https://reactnative.dev/)
-- [expo](https://expo.io/)
+- [Expo](https://expo.io/)
