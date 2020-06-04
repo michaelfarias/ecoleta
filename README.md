@@ -4,4 +4,5 @@
 
 	:brazil: Project developed during the NextLevelWeek edition offered by Rocketseat
 
-# :recycle: ecoleta
+# :recycle: Ecoleta
+## :computer: Technologies
